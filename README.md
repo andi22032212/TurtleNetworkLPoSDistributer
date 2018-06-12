@@ -15,6 +15,7 @@ Once the dependencies are installed, the script that generates the payouts need 
  *     - alias: the alias of the node address
  *     - startBlockHeight: the block from which you want to start distribution for
  *     - endBlock: the block until you want to distribute the earnings
+ *     - assetID: put hereid of node's token, stay empty if doesn't exist
  *     - distributableBTNPerBlock: amount of node's token distributed per forged block
  *     - decimalsoftoken: decimals of node's token
  *     - filename: file to which the payments for the mass payment tool are written
@@ -28,7 +29,7 @@ Once the dependencies are installed, the script that generates the payouts need 
 var config = {
 address: '', // put here the address of your node that you want to distribute from
 alias: 'Your node alias',
-startBlockHeight: 70000,
+startBlockHeight: 70000, //put here the block from which you want to start distribution for
 endBlock: 76720, // put here the block height you want to calculate the payment distribution
 assetID: '', // put here id of node's token, stay empty if doesn't exist
 distributableBTNPerBlock: 10, // put here amount of node's token distributed per forged block
@@ -36,7 +37,7 @@ decimalsoftoken: 3, // put here decimals of node's token
 filename: 'payments.json', // put here the file name where the payments needs to be written
 node: 'http://localhost:6861', // put here the address of REST API
 percentageOfFeesToDistribute: 90, // put here the percentage of fees you want to distribute
-blockStorage: 'blocks.json',
+blockStorage: 'blocks.json', // put here file for storing block history
 minAmountToPayTN: 0, // TN min amount to pay
 minAmountToPayBTN: 0 // node's token min amount to pay
 };
@@ -80,7 +81,7 @@ decimalsoftoken: 3, // put here decimals of node's token
 filename: 'payments.json', // put here the file name where the payments needs to be written
 node: 'http://localhost:6861', // put here the address of REST API
 percentageOfFeesToDistribute: 80, // put here the percentage of fees you want to distribute
-blockStorage: 'blocks.json',
+blockStorage: 'blocks.json', // put here file for storing block history
 assetId: '', // put here assetId of node's token
 excludeList: [''], // put here address, which won't get fee for holding node's token
 percentageOfFeesToDistributeHOLDers: 20, // put here how much distribute to holders, can be 0.
@@ -105,7 +106,7 @@ filename: 'payments.json', // put the file name where payments have been written
 node: 'http://localhost:6861', // put the IP address of your REST API node
 apiKey: '', // put your secret API Key
 feeAssetId: null, //id of the asset used to pay the fee, null for TurtleNode
-fee: 2000000 // put 
+fee: 2000000 
 };
 
 ```
