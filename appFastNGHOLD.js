@@ -35,7 +35,7 @@ blockStorage: 'blocks.json',
 assetId: '', // put here assetId of node's token
 excludeList: [''], // put here address, which won't get fee for holding node's token
 percentageOfFeesToDistributeHOLDers: 10, // put here how much distribute to holders, can be 0.
-minAmounttoPayTN: 0, // put here TN min amount to pay
+minAmounttoPayTN: 0, // put here TN min amount to pay, where 2000000 = 0.02 TN
 minAmountToPayBTN: 0 // put here node's token min amount to pay
 };
 
@@ -277,17 +277,17 @@ var pay = function(richlist) {
                 "amount": Number(Math.round(payments[address])),
                 "fee": 2000000,
                 "sender": config.address,
-                "attachment": "leasing pay",
+                "attachment": "",
                 "recipient": address
             });
         }
-        if (BTN[address] > 0 && Math.round(BTN[address] * Math.pow(10, config.decimalsoftoken)) > config.minAmountToPayBTN) {
+        if (BTN[address] > 0 && Number(Math.round(BTN[address])) > config.minAmountToPayBTN) {
             transactionsG.push({
                 "amount": Number(Math.round(BTN[address] * Math.pow(10, 3))),
                 "fee": 2000000,
                 "assetId": config.assetId,
                 "sender": config.address,
-                "attachment": "BTN drop to leasers",
+                "attachment": "",
                 "recipient": address
             });
         }
