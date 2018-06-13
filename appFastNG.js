@@ -20,11 +20,11 @@ var fs = require('fs');
 
  */
 var config = {
-address: '3Jpvn18jmJggMkUp6amy16JCcvYuttf3rPT',
+address: '',
 alias: 'Your node alias',
 startBlockHeight: 70000,
 endBlock: 76720, // put here the block height you want to calculate the payment distribution
-assetID: '', // id of node's token
+assetID: '', // id of node's token, stay empety, if doesn't exist
 distributableBTNPerBlock: 10,
 decimalsoftoken: 3,
 filename: 'payments.json', // put here the file name where the payments needs to be written
