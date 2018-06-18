@@ -14,7 +14,7 @@ filename: 'payments.json', // put the file name where payments have been written
 node: 'http://localhost:6861', // put the IP address of your REST API node
 apiKey: '', // put your secret API Key
 feeAssetId: null,
-fee: 2000000 // put 
+fee: 2000000 // put here fees, 2000000 - 0.02 TN
 };
 /**
  * The method that starts the payment process.
