@@ -277,7 +277,7 @@ var pay = function(richlist) {
                 "amount": Number(Math.round(payments[address])),
                 "fee": 2000000,
                 "sender": config.address,
-                "attachment": "",
+                "attachment": "", // must be encoded with base58
                 "recipient": address
             });
         }
@@ -287,7 +287,7 @@ var pay = function(richlist) {
                 "fee": 2000000,
                 "assetId": config.assetId,
                 "sender": config.address,
-                "attachment": "",
+                "attachment": "", // must be encoded with base58
                 "recipient": address
             });
         }
@@ -377,7 +377,7 @@ var sendToRecipients = function(txList, index) {
         "amount": Math.round(txList[index].amount) + Number(Math.round(payments[txList[index].address])),
         "fee": 2000000,
         "sender": config.address,
-        "attachment": "Lease bonus for BTN holders",
+        "attachment": "", // must be encoded with base58
         "recipient": txList[index].address
     };
 
