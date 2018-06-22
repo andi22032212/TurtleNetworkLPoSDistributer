@@ -91,7 +91,7 @@ minAmountToPayBTN: 0 // put here node's token min amount to pay
 ```
 
 ## Doing the payments
-For the actual payout, the masspayment tool needs to be run. Before it could be started, it also needs to be configured:
+For the actual payout, the massPayment.js tool needs to be run. Before it could be started, it also needs to be configured:
 ```sh
 /**
  *  Put your settings here:
@@ -130,3 +130,22 @@ After the configuration the checking tool could be executed with:
 ```sh
 node checkPaymentsFile.js
 ```
+
+## Doing payments by mass transfer transactions
+First of all need to open masspay.js and edit config:
+```sh
+var config = {
+    filename: 'payments.json', // put the file name where payments have been written.
+    node: 'http://localhost:6861', // put the IP address of your REST API node
+    apiKey: '', // put your secret API Key
+    feeAssetId: null, // TN token
+    feeAssetId2: "", //assetId of node's token
+    fee: 2000000, // put 2000000 (0.02 TN)
+    x: 0 // if 0 - check transactions, 1 - do trans. DO FIRST RUN WITH 0 TO CHECK THE TRANSACTIONS
+};
+```
+After configuration the script should be started with:
+```sh
+node masspay.js
+```
+
