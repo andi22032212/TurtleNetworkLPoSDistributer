@@ -2,7 +2,6 @@ var request = require('sync-request');
 var LineReaderSync = require("line-reader-sync")
 var syncRequest = require('sync-request');
 var fs = require('fs');
-var fs = require('fs');
 
 /**
  * Put your settings here:
@@ -36,7 +35,10 @@ assetId: '', // put here assetId of node's token
 excludeList: [''], // put here address, which won't get fee for holding node's token
 percentageOfFeesToDistributeHOLDers: 10, // put here how much distribute to holders, can be 0.
 minAmounttoPayTN: 0, // put here TN min amount to pay, where 2000000 = 0.02 TN
-minAmountToPayBTN: 0 // put here node's token min amount to pay
+minHold: 1000, //min hold to get for holding
+MinIfNotLease: 2000000, //min getting amount if not leasing, but holding node's token, where 2000000 = 0.02 TN
+MinIfLeaseAndHold: 0, // min amount if leasing and holding 
+minBTNpays: 1 //Min amount of node's token
 };
 
 
@@ -272,7 +274,7 @@ var pay = function(richlist) {
     for (var address in payments) {
         var payment = (payments[address] / Math.pow(10, 8));
 
-        if (payment > 0 && Number(Math.round(payments[address])) > config.minAmounttoPayTN && !(richlist[address] > 0)) {
+        if (Number(Math.round(payments[address])) > config.minAmounttoPayTN && !(richlist[address] > config.minHold)) {
             transactionsG.push({
                 "amount": Number(Math.round(payments[address])),
                 "fee": 2000000,
@@ -281,9 +283,9 @@ var pay = function(richlist) {
                 "recipient": address
             });
         }
-        if (BTN[address] > 0 && Number(Math.round(BTN[address])) > config.minAmountToPayBTN) {
+        if (Number(Math.round(BTN[address] * Math.pow(10, config.decimalsoftoken))) > Number((config.minBTNpays*Math.pow(10,config.decimalsoftoken)))) {
             transactionsG.push({
-                "amount": Number(Math.round(BTN[address] * Math.pow(10, 3))),
+                "amount": Number(Math.round(BTN[address] * Math.pow(10, config.decimalsoftoken))),
                 "fee": 2000000,
                 "assetId": config.assetId,
                 "sender": config.address,
@@ -353,35 +355,42 @@ var checkTotalDistributableAmount = function(richlist) {
 
 var startDistribute = function(richlist, block) {
     var transactions = [];
-    var feePaid = 
-    console.log('totalfee = ' + totalfee);
-    console.log('feePaid = ' + ((totalfee * (config.percentageOfFeesToDistributeHOLDers + config.percentageOfFeesToDistribute))/ 100));
     for (var address in richlist) {
+        if (richlist[address] > config.minHold){
         var amount = richlist[address];
         var percentage = amount / total;
         var amount2 = totalfee * percentage;
         var amountToSend = amount2 * ((config.percentageOfFeesToDistributeHOLDers) / 100);
 
 
-        totalDistributed2 += Number(amountToSend);
         transactions.push({ address: address, amount: amountToSend });
+        }
     }
 
     sendToRecipients(transactions, 0);
-    console.log('totally distributed to holders: ' + totalDistributed2);
 };
 
 
 var sendToRecipients = function(txList, index) {
-    var payment = {
-        "amount": Math.round(txList[index].amount) + Number(Math.round(payments[txList[index].address])),
-        "fee": 2000000,
-        "sender": config.address,
-        "attachment": "", // must be encoded with base58
-        "recipient": txList[index].address
-    };
-
-    if (Math.round(txList[index].amount) + Number(Math.round(payments[txList[index].address])) > config.minAmounttoPayTN) {
+    if (Number(Math.round(payments[txList[index].address])) > 0) {
+        var payment = {
+            "amount": Math.round(txList[index].amount) + Number(Math.round(payments[txList[index].address])),
+            "fee": 2000000,
+            "sender": config.address,
+            "attachment": "",
+            "recipient": txList[index].address
+        };
+    }
+    else {
+        var payment = {
+            "amount": Math.round(txList[index].amount),
+            "fee": 2000000,
+            "sender": config.address,
+            "attachment": "",
+            "recipient": txList[index].address
+        };
+    }
+    if (Math.round(txList[index].amount) > config.MinIfNotLease || (Number(Math.round(payments[txList[index].address])) > config.MinIfLeaseAndHold)) {
         payments2.push(payment);
     }
     index++;
