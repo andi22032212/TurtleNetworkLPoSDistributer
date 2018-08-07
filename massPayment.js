@@ -50,7 +50,7 @@ var doPayment = function(payments, counter) {
                 if (body.error) {
                     console.log('error during transfer: ' + body.message);
                 } else {
-                     console.log(body)
+                     //console.log(body)
                     console.log(counter + ' send ' + payment.amount + ' of ' + payment.assetId + ' to ' + payment.recipient + '! with fee ' + payment.fee + ' id: ' + payment.feeAssetId + ' sender ' + payment.sender);
                 }
                 counter++;
