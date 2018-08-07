@@ -14,7 +14,7 @@ filename: 'payments.json', // put the file name where payments have been written
 node: 'http://localhost:6861', // put the IP address of your REST API node
 apiKey: '', // put your secret API Key
 feeAssetId: null,
-fee: 2000000 // put here fees, 2000000 - 0.02 TN
+fee: 2000000 // put 2000000 (0.02 TN)
 };
 /**
  * The method that starts the payment process.
@@ -39,11 +39,8 @@ var start = function() {
  */
 var doPayment = function(payments, counter) {
     var payment = payments[counter];
-
-    if (config.feeAssetId !== null) {
-        payment.feeAssetId = config.feeAssetId;
-        payment.fee = config.fee;
-    }
+    payment.fee = config.fee;
+    payment.feeAssetId = config.feeAssetId;
 
     setTimeout(function() {
         request.post({ url: config.node + '/assets/transfer', json: payment, headers: { "Accept": "application/json", "Content-Type": "application/json", "api_key": config.apiKey } }, function(err, response, body) {
@@ -53,7 +50,8 @@ var doPayment = function(payments, counter) {
                 if (body.error) {
                     console.log('error during transfer: ' + body.message);
                 } else {
-                    console.log(counter + ' send ' + payment.amount + ' of ' + payment.assetId + ' to ' + payment.recipient + '!');
+                     console.log(body)
+                    console.log(counter + ' send ' + payment.amount + ' of ' + payment.assetId + ' to ' + payment.recipient + '! with fee ' + payment.fee + ' id: ' + payment.feeAssetId + ' sender ' + payment.sender);
                 }
                 counter++;
                 if (counter < payments.length) {
