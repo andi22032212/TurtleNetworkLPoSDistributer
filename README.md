@@ -7,49 +7,8 @@ First of all, you need to install Node.js (https://nodejs.org/en/) and NPM. Afte
 mkdir node_modules
 npm install
 ```
-Once the dependencies are installed, the script that generates the payouts need to be configured. In order to do so, open appFastNG.js and change the settings of the configuration section:
-```sh
-/**
- * Put your settings here:
- *     - address: the address of your node that you want to distribute from
- *     - alias: the alias of the node address
- *     - startBlockHeight: the block from which you want to start distribution for
- *     - endBlock: the block until you want to distribute the earnings
- *     - assetID: put hereid of node's token, stay empty if doesn't exist
- *     - distributableBTNPerBlock: amount of node's token distributed per forged block
- *     - decimalsoftoken: decimals of node's token
- *     - filename: file to which the payments for the mass payment tool are written
- *     - node: address of your node in the form http://<ip>:<port
- *     - percentageOfFeesToDistribute: the percentage of Waves fees that you want to distribute
- *     - blockStorage: file for storing block history
- *     - minAmountToPayTN: 0, // TN min amount to pay, usually set it more than fee(2000000)
- *     - minAmountToPayBTN: 0 // node's token min amount to pay
 
- */
-var config = {
-address: '', // put here the address of your node that you want to distribute from
-alias: 'Your node alias',
-startBlockHeight: 70000, //put here the block from which you want to start distribution for
-endBlock: 76720, // put here the block height you want to calculate the payment distribution
-assetID: '', // put here id of node's token, stay empty if doesn't exist
-distributableBTNPerBlock: 10, // put here amount of node's token distributed per forged block
-decimalsoftoken: 3, // put here decimals of node's token
-filename: 'payments.json', // put here the file name where the payments needs to be written
-node: 'http://localhost:6861', // put here the address of REST API
-percentageOfFeesToDistribute: 90, // put here the percentage of fees you want to distribute
-blockStorage: 'blocks.json', // put here file for storing block history
-minAmountToPayTN: 0, // TN min amount to pay
-minAmountToPayBTN: 0 // node's token min amount to pay
-};
-
-After a successful configuration of the tool, it could be started with:
-```sh
-node appFastNG.js
-```
-
-After the script is finished, the payments that should be distributed to the leasers are written to the file configured by the _config.filename_ setting in the configuration section.
-
-If you want to distribute part of node's fees to holders of node's token you should use appFastNGHOLD.js. Configuration:
+Once the dependencies are installed, the script that generates the payouts need to be configured. In order to do so, open appFastNGHOLD.js and change the settings of the configuration section::
 
 ```sh
 /**
@@ -89,6 +48,12 @@ minAmounttoPayTN: 0, // put here TN min amount to pay
 minAmountToPayBTN: 0 // put here node's token min amount to pay
 };
 ```
+After configuration, the script could be started with:
+```sh
+node appFastNGHOLD.js
+```
+
+
 
 ## Doing the payments
 For the actual payout, the massPayment.js tool needs to be run. Before it could be started, it also needs to be configured:
