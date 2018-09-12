@@ -20,13 +20,13 @@ var fs = require('fs');
 
  */
 var config = {
-address: '',
-alias: 'Your node alias',
-startBlockHeight: 70000,
-endBlock: 76720, // put here the block height you want to calculate the payment distribution
-assetID: '', // id of node's token, stay empety, if doesn't exist
+address: '3Jcz4rj98NUQAgEr3BVXaEvrSBVQ8eHb3F4',
+alias: 'natapoints',
+startBlockHeight: 149634,
+endBlock: 199654, // put here the block height you want to calculate the payment distribution
+assetID: '79jWQxTiV925jubY2c48vwJqVN2z1hU3rXX8uqdhuQnY', // id of node's token, stay empety, if doesn't exist
 distributableBTNPerBlock: 10,
-decimalsoftoken: 3,
+decimalsoftoken: 2,
 filename: 'payments.json', // put here the file name where the payments needs to be written
 node: 'http://localhost:6861', // put here the address of REST API
 percentageOfFeesToDistribute: 90, // put here the percentage of fees you want to distribute
