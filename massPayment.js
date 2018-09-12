@@ -13,8 +13,8 @@ var config = {
 filename: 'payments.json', // put the file name where payments have been written.
 node: 'http://localhost:6861', // put the IP address of your REST API node
 apiKey: '', // put your secret API Key
-feeAssetId: null,
-fee: 2000000 // put 2000000 (0.02 TN)
+feeAssetId: '79jWQxTiV925jubY2c48vwJqVN2z1hU3rXX8uqdhuQnY',
+fee: 5 // put 2000000 (0.02 TN)
 };
 /**
  * The method that starts the payment process.
